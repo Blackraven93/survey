@@ -16,6 +16,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHost
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.currentBackStackEntryAsState
+import androidx.navigation.compose.rememberNavController
 import com.jetpack.composedemo.ui.theme.ComposeDemoTheme
 
 class MainActivity : ComponentActivity() {
@@ -90,10 +96,10 @@ fun BottomNavigation(navController: NavHostController) {
 sealed class BottomNavItem(
     val title: Int, val icon: Int, val screenRoute: String
 ) {
-    object Calendar : BottomNavItem(R.string.text_calendar, R.drawable.ic_calendar, CALENDAR)
-    object Timeline : BottomNavItem(R.string.text_timeline, R.drawable.ic_timeline, TIMELINE)
-    object Analysis : BottomNavItem(R.string.text_analysis, R.drawable.ic_clipbord, ANALYSIS)
-    object Settings : BottomNavItem(R.string.text_settings, R.drawable.ic_settings, SETTINGS)
+    object Calendar : BottomNavItem(R.string.text_calendar, R.drawable.raven_img, CALENDAR)
+    object Timeline : BottomNavItem(R.string.text_timeline, R.drawable.raven_img, TIMELINE)
+    object Analysis : BottomNavItem(R.string.text_analysis, R.drawable.raven_img, ANALYSIS)
+    object Settings : BottomNavItem(R.string.text_settings, R.drawable.raven_img, SETTINGS)
 }
 
 @Composable
@@ -188,6 +194,6 @@ fun SettingsScreen() {
 @Composable
 fun DefaultPreview() {
     ComposeDemoTheme {
-        CalendarScreen()
+        MainScreenView()
     }
 }
