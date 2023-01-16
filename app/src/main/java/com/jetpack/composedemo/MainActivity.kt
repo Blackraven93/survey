@@ -19,82 +19,47 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             ComposeDemoTheme() {
-
+                SlotDemo (
+                    { Text("Top Text") },
+                    { ButtonDemo() },
+                    { Text("Bottom Text") }
+                )
             }
         }
     }
 }
 
-val LocalColor = staticCompositionLocalOf { Color(0xFFffdbcf) }
-
+// Slot을 사용한다면 호출 시점에 동적으로 UI를 지정할 수 있다.
 @Composable
-fun Composable1() {
-    var color = if (isSystemInDarkTheme()) {
-        Color(0xFFa08d87)
-    } else {
-        Color(0xFFffdbcf)
-    }
-
-    Column {
-        Composable2()
-
-        CompositionLocalProvider(LocalColor provides color) {
-            Composable3()
-        }
-        Composable3()
+fun SlotDemo(
+    topContent: @Composable () -> Unit,
+    middleContent: @Composable () -> Unit,
+    bottomContent: @Composable () -> Unit
+) {
+    Column() {
+        topContent()
+        middleContent()
+        bottomContent()
     }
 }
 
 @Composable
-fun Composable2() {
-    Composable4()
-}
-
-@Composable
-fun Composable3() {
-    Text("Composable 3", modifier = Modifier.background(LocalColor.current))
-    CompositionLocalProvider(LocalColor provides Color.Red) {
-        Composable5()
+fun ButtonDemo() {
+    Button(onClick = { /*TODO*/ }) {
+        Text("Click me")
     }
 }
 
-@Composable
-fun Composable4() {
-    Composable6()
-}
 
-@Composable
-fun Composable5() {
-    Text("Composable 5", modifier = Modifier.background(LocalColor.current))
-
-    CompositionLocalProvider(LocalColor provides Color.Green) {
-        Composable7()
-    }
-
-    CompositionLocalProvider(LocalColor provides Color.Yellow) {
-        Composable8()
-    }
-}
-
-@Composable
-fun Composable6() {
-    Text("Composable 6", modifier = Modifier.background(LocalColor.current))
-}
-
-@Composable
-fun Composable7() {
-    Text("Composable 7", modifier = Modifier.background(LocalColor.current))
-}
-
-@Composable
-fun Composable8() {
-    Text("Composable 8", modifier = Modifier.background(LocalColor.current))
-}
-
-@Preview(showBackground = true, uiMode = UI_MODE_NIGHT_YES)
+@Preview(showBackground = true)
 @Composable
 fun DefaultPreview() {
     ComposeDemoTheme {
-        Composable1()
+//        SlotDemo(middleContent = { ButtonDemo() })
+        SlotDemo (
+            { Text("Top Text") },
+            { ButtonDemo() },
+            { Text("Bottom Text") }
+        )
     }
 }
